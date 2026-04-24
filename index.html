@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>すきまな プリント | “やらせる勉強”から、“自分からやる学び”へ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS変数定義 --- */
+        :root {
+            /* カラー */
+            --base-color: #FDA482;
+            --main-color: #FAB676;
+            --text-color: #392822;
+            --line-green: #06c755; /* 指定色：LINEグリーン */
+            --white: #FFFFFF;
+            
+            /* マスク・グラデーション */
+            --overlay-grad: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%);
+            --mask-dark: rgba(0, 0, 0, 0.4);
+
+            /* 統一設定 */
+            --section-padding: 80px 0;
+            --fz-h2: clamp(1.5rem, 4vw, 2.2rem);
+            --fz-h3: clamp(1.2rem, 3vw, 1.6rem);
+            --fz-body: 1.1rem;
+            
+            /* リンク先URL */
+            --cta-link: "https://s.lmes.jp/landing-qr/2008928444-BVCOuMyT?uLand=9Up8au";
+        }
+
+        /* スマホ時の余白調整 */
+        @media (max-width: 768px) {
+            :root {
+                --section-padding: 50px 0;
+            }
+        }
+
+        /* --- リセット --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--base-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+            text-align: center;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- レイアウト構造 --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 4%;
+        }
+
+        section { 
+            padding: var(--section-padding); 
+            position: relative; 
+        }
+
+        /* フォントの統一 */
+        h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 700; margin-bottom: 1.5rem; line-height: 1.4; }
+        h2 { font-size: var(--fz-h2); font-weight: 700; margin-bottom: 1.5rem; line-height: 1.4; }
+        h3 { font-size: var(--fz-h3); font-weight: 700; margin-bottom: 1.5rem; }
+        p { font-size: var(--fz-body); margin-bottom: 1.5rem; }
+
+        img { 
+            max-width: 100%; 
+            height: auto; 
+            display: block; 
+            margin: 0 auto; 
+        }
+
+        /* --- 共通ボタン --- */
+        .btn {
+            display: inline-block;
+            background-color: var(--line-green);
+            color: var(--white);
+            padding: clamp(15px, 3vw, 20px) clamp(30px, 8vw, 60px);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(6, 199, 85, 0.3);
+            border: none;
+            cursor: pointer;
+            z-index: 10;
+            position: relative;
+        }
+        .btn:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 6px 20px rgba(6, 199, 85, 0.5);
+            filter: brightness(1.1);
+        }
+
+        /* --- ヘッダー・ヒーロー --- */
+        header { background: var(--white); padding: 15px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .logo { max-width: 250px; }
+
+        .hero {
+            padding: 0;
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            height: 65vh;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 0 0 40px 40px; 
+        }
+
+        .hero-img-wrapper {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+
+        .hero-img-wrapper img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-img-wrapper::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--overlay-grad);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: absolute;
+            bottom: 12%; left: 0; width: 100%;
+            color: var(--white);
+            padding: 0 5%;
+            z-index: 2;
+        }
+
+        .hero-content h1 { text-shadow: 0 2px 15px rgba(0,0,0,0.7); color: var(--white); }
+
+        /* --- マスク付き画像コンテナ --- */
+        .masked-image-container {
+            position: relative;
+            width: 100%;
+            max-width: 850px;
+            margin: 40px auto;
+            border-radius: 30px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .masked-image-container img {
+            width: 100%;
+            height: auto;
+            opacity: 0.8;
+        }
+
+        .masked-image-container::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--mask-dark);
+            z-index: 1;
+        }
+
+        .masked-overlay-text {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            z-index: 2;
+            color: var(--white);
+        }
+
+        .masked-overlay-text p {
+            font-size: clamp(0.95rem, 3vw, 1.25rem);
+            font-weight: bold;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            margin: 0;
+            line-height: 1.8;
+        }
+        
+        .masked-overlay-text h2, .masked-overlay-text h3 {
+            color: var(--white);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            margin-top: 20px;
+        }
+
+        /* --- コンテンツパーツ --- */
+        .problem-card {
+            background: var(--white);
+            border-radius: 30px;
+            padding: clamp(30px, 5vw, 50px) clamp(20px, 5vw, 30px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .check-list {
+            display: inline-block;
+            text-align: left;
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .check-list li {
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 15px;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            font-weight: bold;
+        }
+
+        .check-list li::before {
+            content: "✔";
+            position: absolute;
+            left: 0; color: #cd254f;
+        }
+
+        .feature-block h2 { margin-bottom: 30px; }
+
+        .comparison-box {
+            background: var(--white);
+            padding: 40px 20px;
+            border-radius: 30px;
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .comp-arrow { font-size: 2.5rem; color: var(--main-color); display: block; line-height: 1; }
+
+        .future-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        /* --- CTA --- */
+        .cta-final-v2 { padding: 0; background-color: var(--main-color); }
+        .cta-bg-wrapper {
+            position: relative;
+            min-height: 550px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .cta-bg-img {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: 1;
+        }
+
+        .cta-bg-wrapper::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+            z-index: 2;
+        }
+
+        .cta-overlay-content { position: relative; z-index: 3; color: var(--white); padding: 60px 20px; }
+
+        .cta-offer-box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: inline-block;
+            padding: 20px 30px;
+            border-radius: 20px;
+            margin-bottom: 35px;
+        }
+
+        .cta-btn { 
+            background: var(--line-green); 
+            color: var(--white); 
+            font-size: 1.4rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        footer { padding: 40px 0; background: #fff; opacity: 0.8; font-size: 0.9rem; margin-top: 0; }
+
+        /* --- レスポンシブ調整 --- */
+        @media (max-width: 768px) {
+            .hero { height: 55vh; border-radius: 0 0 30px 30px; }
+            .masked-overlay-text { width: 95%; }
+            .masked-overlay-text p { line-height: 1.6; }
+            .cta-bg-wrapper { min-height: 600px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <img src="https://profile-cdn.coconala.com/crop/2560/840/production/images/cover_images/5700866/master/1775704104_627b5a2e-9bda-45cf-8514-a38111737305.jpg" alt="Logo" class="logo">
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-img-wrapper">
+             <img src="https://images.unsplash.com/photo-1594608661623-aa0bd3a69d98?auto=format&fit=crop&w=1200" alt="メインビジュアル">
+        </div>
+        <div class="hero-content">
+            <h1>“やらせる勉強”から、<br>“自分からやる学び”へ</h1>
+            <p>「勉強しなさい」と言い続ける毎日、もう限界ではありませんか？</p>
+            <a href="https://s.lmes.jp/landing-qr/2008928444-BVCOuMyT?uLand=9Up8au" class="btn">お子様の才能を開く鍵、３０秒で見つけませんか？</a>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="problem-card">
+                <h2>こんなお悩みありませんか？</h2>
+                <ul class="check-list">
+                    <li>毎日「やりなさい」と言っては、嫌がられる</li>
+                    <li>せっかく買ったドリルも、3日で放置</li>
+                    <li>優しく言ってもダメ、怒ってもダメ</li>
+                    <li>「どうしたらいいの…」と途方に暮れている</li>
+                </ul>
+            </div>
+
+            <div class="masked-image-container">
+                <img src="images/stdprint.JPG" alt="均一化教材">
+                <div class="masked-overlay-text">
+                    <p>本当は、怒りたくなんてないのに。<br>
+                    気づけば今日も、「なんでやらないの！」と怒ってしまった。<br>
+                    そして、自己嫌悪。。。</p>
+                    
+                    <h2>そんな毎日、もう終わりにしませんか？</h2>
+                    <h3>問題は、お子さんではありません。<br>「やり方」が合っていないだけです。<br>
+                    今の教育は、みんな同じ教材・同じ進み方。<br>
+                    でも、子どもは一人ひとり違います。<br>
+                    だから必要なのは、「子どもに合わせる学び」。<br>好き × 発達段階に合わせた学習法です。
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: var(--white);">
+        <div class="container">
+            <div class="feature-block">
+                <h2>例えば、魚が好きなお子様には「魚のプリント」にしてお子様に合わせる。</h2>
+                <img src="https://m.media-amazon.com/images/I/81i5QwDNUQL.jpg" alt="お魚プリント実例" style="border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+            </div>
+            <div style="margin-top: 40px;">
+                <a href="https://s.lmes.jp/landing-qr/2008928444-BVCOuMyT?uLand=9Up8au" class="btn">無料診断、うちの子の隠れた才能はこちら＞＞＞</a>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h1>子どもはこう変わります。<br>「もっとやりたい！」</h1>
+            <h2>勉強時間が、親子の幸せな時間に変わる。</h2>
+            <p style="font-weight: bold; color: var(--main-color); margin-bottom: 30px;">40万人実績 / 専門家チーム監修</p>
+            
+            <div class="masked-image-container">
+                <img src="images/jpnprint1.png" alt="国語プリント">
+                <div class="masked-overlay-text">
+                    <h2>「ママ見て！これ面白い！」<br>子どもの目が輝き出し、<br>親子の会話に笑顔が戻ります。</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: var(--white);">
+        <div class="container">
+            <h2>すきまなプリントのホームワーク</h2>
+            <div class="future-grid">
+                <img src="https://service-cdn.coconala.com/crop/460/380/service_images/original/745209d9-8894030.png" alt="価値1">
+                <img src="https://service-cdn.coconala.com/crop/460/380/service_images/original/5ab45863-8894031.png" alt="価値2">
+                <img src="https://service-cdn.coconala.com/crop/460/380/service_images/original/f25f7cec-8894032.png" alt="価値3">
+            </div>
+
+            <div class="comparison-box">
+                <div>
+                    <h3 style="color:#cd254f">悩んだ過去</h3>
+                    <p>集中できない・毎日ケンカ</p>
+                </div>
+                <span class="comp-arrow">▼</span>
+                <div>
+                    <h3 style="color:var(--main-color)">希望の未来</h3>
+                    <p>自分からやるように・笑顔で取り組む</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="cta-final-v2">
+        <div class="cta-bg-wrapper">
+            <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1200" alt="未来へ" class="cta-bg-img">
+            <div class="cta-overlay-content">
+                <div class="container">
+                    <p style="font-weight: bold; margin-bottom: 10px;">このまま同じ悩みを続けますか？</p>
+                    <h2 class="cta-main-title">子どもが自分から学ぶ<br>未来を選びませんか？</h2>
+                    <div class="cta-offer-box">
+                        <p style="margin-bottom: 0;">今だけ！無料プレゼント<br>🎁オーダーメイドプリント2枚<br>＋🎁選べるあいうえお表</p>
+                    </div>
+                    <div>
+                        <a href="https://s.lmes.jp/landing-qr/2008928444-BVCOuMyT?uLand=9Up8au" class="btn cta-btn">今すぐLINEで無料相談する</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 すきまな プリント</p>
+        </div>
+    </footer>
+
+    <script>
+        // スムーススクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if(targetId === "#") return;
+                
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
